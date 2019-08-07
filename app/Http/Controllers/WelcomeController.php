@@ -15,6 +15,13 @@ class WelcomeController extends Controller
 
     public function create(Request $request)
     {
+
+        $request->validate([
+            'assignee'=>'required',
+            'task'=>'required',
+            'description'=>'required'
+        ]);
+
         $post = new Post;
 
         $post->assignee = $request->assignee;
