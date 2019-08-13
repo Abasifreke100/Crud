@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="container">
-                                <form action="{{route('post.update')}}" method="post" id="update">
+                                <form action="" method="post" id="update">
                                     @csrf
                                     <div class="form-group">
                                         <input type="text" id="assignee" name="assignee" placeholder="Assignee" class="form-control" required>
@@ -24,6 +24,7 @@
                                     <div class="form-group">
                                         <textarea id="description" name="description" placeholder="Description" class="form-control" required></textarea>
                                     </div>
+                                </form>
                             </div>
                         </div>
                     </div>

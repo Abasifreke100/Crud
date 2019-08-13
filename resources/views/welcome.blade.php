@@ -60,10 +60,10 @@
                                                 data-post-assignee="{{$post->assignee}}"
                                                 data-post-task="{{$post->task}}"
                                                 data-post-description="{{$post->description}}"
-                                                data-target="#exampleModal"><i class="far fa-edit"></i></i>
+                                                data-target="#exampleModal"><i class="far fa-edit"></i>
                                         </button>
                                     <td>
-                                        <form action="{{route('post.delete', $post->id)}}" method="post">
+                                        <form action="" method="post">
                                             @csrf
                                             <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                         </form>

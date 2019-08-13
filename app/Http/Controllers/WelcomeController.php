@@ -2,59 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Post;
+use App\Http\Requests\TaskCreateRequest;
+//use App\Http\Requests\TaskUpdateRequest;
+use Illuminate\Support\Str;
 
 class WelcomeController extends Controller
 {
     public function index()
     {
-        return view('welcome')->with('posts',Post::all());
+        $posts = [];
+
+        if(file_exists('posts.json')){
+
+            $posts = json_decode(file_get_contents('posts.json'));
+        }
+
+        return view('welcome')->with('posts',$posts);
     }
 
-    public function create(Request $request)
+
+    public function create(TaskCreateRequest $request)
     {
+        $posts = [];
 
-        $request->validate([
-            'assignee'=>'required',
-            'task'=>'required',
-            'description'=>'required'
-        ]);
+        if(file_exists('posts.json')){
 
-        $post = new Post;
+            $posts = json_decode(file_get_contents('posts.json'));
+        }
 
-        $post->assignee = $request->assignee;
-        $post->task = $request->task;
-        $post->description = $request->description;
-        $post->save();
+        $post = $request->all();
+        $post['id'] = Str::random(32);
+
+        array_push($posts,$post);
+
+        $jsonPost = json_encode($posts);
+
+        file_put_contents('posts.json',$jsonPost);
 
         return redirect()->back()->with('status','Task Successfully Assign !!');
     }
 
+
     public function edit($id)
     {
-        $post = Post::where('id',$id)->first();
-
-        return view('edit',compact('post'));
+        return view('edit')->with('posts',$id);
     }
 
-    public function update(Request $request,$id)
-    {
-        $post = Post::where('id',$id)->first();
-        $post->assignee = $request->input('assignee');
-        $post->task = $request->input('task');
-        $post->description = $request->input('description');
-        $post->save();
-        return back()->with('status','Task Successfully Updated !!');
-    }
 
-    public function delete($id)
-    {
-        $post = Post::findOrFail($id);
-        $post->delete();
-        return back()->with('status','Task Successfully Remove !!');
-    }
+
 
 
 
