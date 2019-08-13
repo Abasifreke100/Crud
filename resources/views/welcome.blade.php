@@ -66,10 +66,7 @@
                                                 data-target="#exampleModal"><i class="far fa-edit"></i>
                                         </button>
                                     <td>
-                                        <form action="" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </form>
+                                        <a href="{{route('post.delete',$post->id)}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -60,8 +60,26 @@ class WelcomeController extends Controller
         $jsonPosts = json_encode($posts);
 
         file_put_contents('posts.json',$jsonPosts);
-        
+
         return redirect()->back()->with('status','Task Successfully Updated !!');
+
+    }
+
+    public function delete($id)
+    {
+        $posts = [];
+
+        if(file_exists('posts.json')){
+            $posts = (array) json_decode(file_get_contents('posts.json'));
+        }
+
+        unset($posts[$id]);
+
+        $jsonPosts = json_encode($posts);
+
+        file_put_contents('posts.json',$jsonPosts);
+
+        return redirect()->back()->with('status','Task Successfully Deleted !!');
 
     }
 

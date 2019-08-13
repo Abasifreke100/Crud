@@ -15,4 +15,4 @@ Route::get('/','WelcomeController@index')->name('post.index');
 Route::post('/create','WelcomeController@create')->name('post.create');
 Route::post('/edit{id}', 'WelcomeController@edit')->name('post.edit');
 Route::post('/update/{id}', 'WelcomeController@update')->name('post.update');
-Route::post('/delete/{id?}', 'WelcomeController@delete')->name('post.delete');
+Route::get('/delete/{id}', 'WelcomeController@delete')->name('post.delete');
