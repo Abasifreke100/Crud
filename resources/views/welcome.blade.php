@@ -48,6 +48,9 @@
                             </thead>
                             <tbody>
 
+
+{{--                            {{dd($posts)}}--}}
+
                             @foreach($posts as $post)
                                 <tr>
                                     <th scope="row">{{$loop->index + 1}}</th>
@@ -84,7 +87,7 @@
 @section('script')
 
     <script>
-        let url ="{{ route('post.update') }}";
+
         $("#exampleModal").on('show.bs.modal', function(event){
             let btn = event.relatedTarget;
             let id = $(btn).data('post-id');
@@ -96,7 +99,7 @@
             $("#description").val(description);
 
 
-            $("#update").attr('action', url+'/'+id)
+            $("#update").attr('action', "/update/" + id);
 
         })
     </script>

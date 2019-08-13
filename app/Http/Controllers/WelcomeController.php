@@ -27,17 +27,16 @@ class WelcomeController extends Controller
 
         if(file_exists('posts.json')){
 
-            $posts = json_decode(file_get_contents('posts.json'));
+            $posts = (array) json_decode(file_get_contents('posts.json'));
         }
 
-        $post = $request->all();
-        $post['id'] = Str::random(32);
+        $id = Str::random(32);
 
-        array_push($posts,$post);
+        $posts[$id] = array_merge(['id' => $id],$request->except('_token'));
 
-        $jsonPost = json_encode($posts);
+        $jsonPosts = json_encode($posts);
 
-        file_put_contents('posts.json',$jsonPost);
+        file_put_contents('posts.json',$jsonPosts);
 
         return redirect()->back()->with('status','Task Successfully Assign !!');
     }
@@ -46,6 +45,24 @@ class WelcomeController extends Controller
     public function edit($id)
     {
         return view('edit')->with('posts',$id);
+    }
+
+    public function update($id)
+    {
+        $posts = [];
+
+        if(file_exists('posts.json')){
+            $posts = (array) json_decode(file_get_contents('posts.json'));
+        }
+
+        $posts[$id] = array_merge((array)$posts[$id], request()->except('_token'));
+
+        $jsonPosts = json_encode($posts);
+
+        file_put_contents('posts.json',$jsonPosts);
+        
+        return redirect()->back()->with('status','Task Successfully Updated !!');
+
     }
 
 
